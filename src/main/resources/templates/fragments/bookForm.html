@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<form th:fragment="bookForm(formAction, formMethod)"
+      th:action="${formAction}"
+      th:method="${formMethod}"
+      th:object="${book}">
+    <div class="row">
+        <div class="form-outline mb-4 col">
+            <label for="title" class="form-label">Title</label>
+            <input th:field="*{title}" name="title" id="title" type="text"
+                   th:value="*{title}"
+                   class="form-control"/>
+            <p th:errors="*{title}" th:text="${#fields.errors('title')}" class="text-danger"></p>
+        </div>
+
+        <div class="form-outline mb-4 col">
+            <label for="author" class="form-label">Author</label>
+            <input th:field="*{author}" name="author" id="author" type="text"
+                   th:value="*{author}"
+                   class="form-control"/>
+            <p th:errors="*{author}" th:text="${#fields.errors('author')}" class="text-danger"></p>
+        </div>
+
+        <div class="form-outline mb-4">
+            <label for="price" class="form-label">Price</label>
+            <input th:field="*{price}" name="price" id="price" type="number" min="0" step="0.01"
+                   th:value="*{price}"
+                   class="form-control"/>
+            <p th:errors="*{price}" th:text="${#fields.errors('price')}" class="text-danger"></p>
+        </div>
+
+        <input type="hidden" name="bookId" th:if="*{id}" th:field="*{id}" th:value="*{id}">
+
+        <div class="text-center mx-auto w-50 row gap-2">
+            <a th:href="@{/}" class="btn btn-dark">Cancel</a>
+            <button type="submit" class="btn btn-dark">Save</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

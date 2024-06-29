@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
+<head th:replace="~{fragments/head :: head(title='Error')}"></head>
+
+<body class="d-flex h-100">
+<div class="container my-auto">
+    <div th:if="${errorMessage}" class="text-center">
+        <h1 th:text="${errorMessage}" class="text-center"></h1>
+        <a class="btn btn-dark mt-3" th:href="@{/}">Home</a>
+    </div>
+
+    <div th:unless="${errorMessage}" class="text-center">
+        <h1>Page Not Found</h1>
+        <h2>404</h2>
+        <a class="btn btn-dark mt-3" th:href="@{/}">Home</a>
+    </div>
+</div>
+</body>
+</html>

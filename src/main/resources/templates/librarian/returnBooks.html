@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Return Books')}"></head>
+<body>
+<header th:insert="~{fragments/navbar :: navbar('returnBooks')}"></header>
+
+<div class="container py-5">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="clickable-row" th:each="book: ${books}" data-th-href="|/books/${book.id}|">
+            <td th:text="${book.getTitle()}"></td>
+            <td th:text="${book.getAuthor()}"></td>
+            <td th:text="${book.getPrice()}"></td>
+            <td>
+                <form th:action="@{/return/{bookid}(bookid=${book.id})}"
+                      th:method="post">
+                    <button type="submit" class="btn btn-dark">Return</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".clickable-row").forEach((e) => {
+            e.addEventListener("click", () => {
+                window.location = e.getAttribute("href");
+            })
+            e.addEventListener("mouseover", () => {
+                e.style.cursor = "pointer";
+            });
+            e.addEventListener("mouseout", () => {
+                e.style.cursor = "default";
+            });
+        })
+    })
+</script>
+</body>
+</html>

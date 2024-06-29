@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Admin Page')}"></head>
+<body>
+<header th:insert="~{fragments/navbar :: navbar('adminPanel')}"></header>
+
+
+<div class="container py-5">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Money</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="clickable-row" th:each="user: ${users}" data-th-href="@{/admin/user/{userId}(userId=${user.id})}">
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="|${user.getFirstName()} ${user.getLastName()}|"></td>
+            <td th:text="${user.getMoney()}"></td>
+            <td>
+                <form th:action="@{/admin/user/delete/{userId}(userId=${user.id})}"
+                      th:method="delete">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".clickable-row").forEach((e) => {
+            e.addEventListener("click", () => {
+                window.location = e.getAttribute("href");
+            })
+            e.addEventListener("mouseover", () => {
+                e.style.cursor = "pointer";
+            });
+            e.addEventListener("mouseout", () => {
+                e.style.cursor = "default";
+            });
+        })
+    })
+</script>
+</body>
+</html>

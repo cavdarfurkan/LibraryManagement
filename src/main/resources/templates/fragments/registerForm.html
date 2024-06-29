@@ -1,0 +1,46 @@
+<form th:fragment="registerForm(formAction)" th:action="${formAction}" method="post" th:object="${user}">
+    <div class="row">
+        <div class="form-outline mb-4 col">
+            <label for="firstname" class="form-label">Username</label>
+            <input th:field="*{firstName}" name="firstname" id="firstname" type="text"
+                   class="form-control"/>
+            <p th:errors="*{firstName}" th:text="${#fields.errors('firstName')}" class="text-danger"></p>
+        </div>
+        <div class="form-outline mb-4 col">
+            <label for="lastname" class="form-label">Lastname</label>
+            <input th:field="*{lastName}" name="lastname" id="lastname" type="text"
+                   class="form-control"/>
+            <p th:errors="*{lastName}" th:text="${#fields.errors('lastName')}" class="text-danger"></p>
+        </div>
+    </div>
+
+    <div class="form-outline mb-4">
+        <label for="username" class="form-label">Username</label>
+        <input th:field="*{username}" name="username" id="username" type="text"
+               class="form-control"/>
+        <p th:errors="*{username}" th:text="${#fields.errors('username')}" class="text-danger"></p>
+    </div>
+
+    <div class="row">
+        <div class="form-outline mb-4 col">
+            <label for="password" class="form-label">Password</label>
+            <input th:field="*{password}" name="password" id="password" type="password"
+                   class="form-control"/>
+            <p th:errors="*{password}" th:text="${#fields.errors('password')}" class="text-danger"></p>
+        </div>
+        <div class="form-outline mb-4 col">
+            <label for="passwordConfirm" class="form-label">Password Confirm</label>
+            <input th:field="*{passwordConfirm}" name="passwordConfirm" id="passwordConfirm"
+                   type="password"
+                   class="form-control"/>
+            <p th:errors="*{passwordConfirm}" th:text="${#fields.errors('passwordConfirm')}"
+               class="text-danger"></p>
+        </div>
+    </div>
+
+    <div class="text-center mx-auto w-50 row gap-2">
+        <button type="submit" class="btn btn-dark">Register</button>
+        <a th:href="@{/login}" class="link-dark">Login</a>
+        <a th:href="@{/register}" class="link-dark">Back</a>
+    </div>
+</form>

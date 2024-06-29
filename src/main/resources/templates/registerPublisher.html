@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Register Publisher')}"></head>
+<body>
+<header th:insert="~{fragments/navbar :: navbar('register')}"></header>
+
+<div class="container py-5">
+    <div class="row border shadow-sm rounded-4 mx-auto">
+        <div class="p-3">
+            <h2 class="mb-3">Register Publisher</h2>
+            <div th:replace="~{fragments/registerForm :: registerForm(formAction=@{/register-publisher})}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

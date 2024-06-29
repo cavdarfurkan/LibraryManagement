@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title=${book.getTitle()})}"></head>
+
+<body>
+<header th:insert="~{fragments/navbar :: navbar('')}"></header>
+<div class="container my-5">
+    <div class="card">
+        <h5 class="card-header" th:text="${book.title}"></h5>
+        <div class="card-body">
+            <h5 class="card-title" th:text="${book.author}"></h5>
+            <p class="card-text" th:text="${book.price}"></p>
+
+            <th:block th:unless="${isBorrowed}">
+                <a th:href="@{/purchase/{bookId}(bookId=${book.id})}" class="btn btn-primary"
+                   th:if="${#authorization.expression('hasRole(''READER'')')}">Buy</a>
+                <a th:href="@{/borrow/{bookId}(bookId=${book.id})}" class="btn btn-primary"
+                   th:if="${#authorization.expression('hasRole(''READER'')')}">Borrow</a>
+            </th:block>
+        </div>
+    </div>
+
+    <div th:if="${errorMessage}" class="bg-danger-subtle rounded-2 p-3 mb-4" th:text="${errorMessage}"></div>
+</div>
+</body>
+</html>

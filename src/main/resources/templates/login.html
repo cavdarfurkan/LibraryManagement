@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Login')}"></head>
+
+<body>
+<header th:insert="~{fragments/navbar :: navbar('login')}"></header>
+
+<div class="container py-5">
+    <div class="row border shadow-sm rounded-4 mx-auto">
+        <div class="p-3">
+            <form th:action="@{/login}" method="post">
+                <h2 class="mb-3">Login</h2>
+
+                <div class="form-outline mb-4">
+                    <label for="username" class="form-label">Username</label>
+                    <input name="username" id="username" type="text" class="form-control"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" id="password" type="password" class="form-control"/>
+                </div>
+
+                <div th:if="${param.error}" class="bg-danger-subtle rounded-2 p-3 mb-4">
+                    Invalid username or password
+                </div>
+
+                <div class="text-center mx-auto w-50 row gap-2">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                    <a th:href="@{/register}" class="link-dark">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

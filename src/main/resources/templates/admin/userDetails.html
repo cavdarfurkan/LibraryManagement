@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='User Details')}"></head>
+<body>
+<header th:insert="~{fragments/navbar :: navbar('')}"></header>
+
+<div class="container py-5">
+    <div class="row border shadow-sm rounded-4 mx-auto">
+        <div class="p-3">
+            <form
+                    th:action="@{/admin/user/edit}"
+                    th:method="${'PUT'}"
+                    th:object="${user}">
+                <div class="row">
+                    <div class="form-outline mb-4 col">
+                        <label for="username" class="form-label">Username</label>
+                        <input th:field="*{username}" name="username" id="username" type="text"
+                               th:value="*{username}"
+                               class="form-control"/>
+                        <p th:errors="*{username}" th:text="${#fields.errors('username')}" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-outline mb-4 col">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input th:field="*{firstName}" name="firstName" id="firstName" type="text"
+                               th:value="*{firstName}"
+                               class="form-control"/>
+                        <p th:errors="*{firstName}" th:text="${#fields.errors('firstName')}" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input th:field="*{lastName}" name="lastName" id="lastName" type="text"
+                               th:value="*{lastName}"
+                               class="form-control"/>
+                        <p th:errors="*{lastName}" th:text="${#fields.errors('lastName')}" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label for="money" class="form-label">Money</label>
+                        <input th:field="*{money}" name="money" id="money" type="number" min="0" step="0.01"
+                               th:value="*{money}"
+                               class="form-control"/>
+                        <p th:errors="*{money}" th:text="${#fields.errors('money')}" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="form-select" aria-label="Roles" name="role" th:field="*{role}">
+                            <option th:selected="*{role == 'ADMINISTRATOR'}" value="ADMINISTRATOR">Admin</option>
+                            <option th:selected="*{role == 'LIBRARIAN'}" value="LIBRARIAN">Librarian</option>
+                            <option th:selected="*{role == 'PUBLISHER'}" value="PUBLISHER">Publisher</option>
+                            <option th:selected="*{role == 'READER'}" value="READER">Reader</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="userId" th:if="*{id}" th:field="*{id}" th:value="*{id}">
+
+                    <div class="text-center mx-auto w-50 row gap-2">
+                        <a th:href="@{/admin/home}" class="btn btn-dark">Cancel</a>
+                        <button type="submit" class="btn btn-dark">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row border shadow-sm rounded-4 mx-auto mt-5">
+        <div class="p-3">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="clickable-row" th:each="book: ${publishedBooks}"
+                    data-th-href="@{/books/{bookId}(bookId=${book.id})}">
+                    <td th:text="${book.getTitle()}"></td>
+                    <td th:text="${book.getAuthor()}"></td>
+                    <td th:text="${book.getPrice()}"></td>
+                    <td class="d-flex justify-content-center gap-2">
+                        <form th:action="@{/admin/delete/{bookid}(bookid=${book.id})}" th:method="delete">
+                            <input type="hidden" name="userId" th:value="${user.id}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <a th:href="@{/admin/edit/{bookid}(bookid=${book.id})}" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".clickable-row").forEach((e) => {
+            e.addEventListener("click", () => {
+                window.location = e.getAttribute("href");
+            })
+            e.addEventListener("mouseover", () => {
+                e.style.cursor = "pointer";
+            });
+            e.addEventListener("mouseout", () => {
+                e.style.cursor = "default";
+            });
+        })
+    })
+</script>
+</body>
+</html>

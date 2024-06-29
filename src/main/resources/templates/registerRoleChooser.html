@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Register')}"></head>
+<body>
+<header th:insert="~{fragments/navbar :: navbar('register')}"></header>
+
+<div class="container py-5">
+    <div class="row border shadow-sm rounded-4 mx-auto">
+        <div class="p-3">
+            <h2 class="mb-3 text-center">Choose Role</h2>
+
+            <div class="text-center mx-auto w-50 row gap-3">
+                <a th:href="@{/register-reader}" class="btn btn-dark">Register as Reader</a>
+                <a th:href="@{/register-publisher}" class="btn btn-dark">Register as Publisher</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

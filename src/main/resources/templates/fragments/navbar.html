@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" th:fragment="navbar(page)">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav w-100">
+                <a class="nav-link" th:classappend="${page == 'home' ? 'active' : ''}" aria-current="page"
+                   th:href="@{/}">
+                    Home
+                </a>
+
+                <!--                ADMINISTRATOR-->
+                <a class="nav-link" th:classappend="${page == 'adminPanel' ? 'active' : ''}"
+                   th:if="${#authorization.expression('hasRole(''ADMINISTRATOR'')')}"
+                   th:href="@{/admin/home}">
+                    Admin Panel
+                </a>
+                <!--                ADMINISTRATOR-->
+
+                <!--                LIBRARIAN-->
+                <a class="nav-link" th:classappend="${page == 'returnBooks' ? 'active' : ''}"
+                   th:if="${#authorization.expression('hasRole(''LIBRARIAN'')')}"
+                   th:href="@{/librarian/return-books}">
+                    Return Books
+                </a>
+                <!--                LIBRARIAN-->
+
+                <!--                PUBLISHER-->
+                <a class="nav-link" th:classappend="${page == 'publishBook' ? 'active' : ''}"
+                   th:if="${#authorization.expression('hasRole(''PUBLISHER'')')}"
+                   th:href="@{/publisher/publish}">
+                    Publish Book
+                </a>
+                <a class="nav-link" th:classappend="${page == 'publishedBooks' ? 'active' : ''}"
+                   th:if="${#authorization.expression('hasRole(''PUBLISHER'')')}"
+                   th:href="@{/publisher/published-books}">
+                    Published Books
+                </a>
+                <!--                PUBLISHER-->
+
+                <!--                READER-->
+                <a class="nav-link" th:classappend="${page == 'borrowedBooks' ? 'active' : ''}"
+                   th:if="${#authorization.expression('hasRole(''READER'')')}" th:href="@{/reader/borrowed-books}">
+                    Borrowed Books
+                </a>
+                <!--                READER-->
+
+                <div class="d-flex ms-auto">
+                    <a class="nav-link" th:classappend="${page == 'login' ? 'active' : ''}"
+                       th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/login}">
+                        Login
+                    </a>
+                    <a class="nav-link" th:classappend="${page == 'register' ? 'active' : ''}"
+                       th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/register}">
+                        Register
+                    </a>
+
+                    <a class="nav-link" th:if="${#authorization.expression('isAuthenticated()')}"
+                       th:href="@{/logout}">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
