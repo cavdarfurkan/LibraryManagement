@@ -5,6 +5,7 @@ This project is a Library Management System developed as part of university clas
 ## Table of Contents
 - [Features](#features)
 - [Roles and Functionalities](#roles-and-functionalities)
+- [Default User Logins](#default-user-logins)
 - [Usage](#usage)
 - [Security](#security)
 - [Technologies Used](#technologies-used)
@@ -44,6 +45,24 @@ This project is a Library Management System developed as part of university clas
 - Can manage all user accounts
 - Can delete any user account
 - Can delete any book
+
+## Default User Logins
+
+- **Administrator**
+  - Username: admin
+  - Password: password
+
+- **Librarian**
+  - Username: librarian
+  - Password: password
+
+- **Publisher**
+  - Username: publisher
+  - Password: password
+
+- **Reader**
+  - Username: reader
+  - Password: password
 
 ## Usage
 - Visit the home page to browse books.
